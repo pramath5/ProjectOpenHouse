@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { SafeAreaView, Text } from "react-native";
+import { Button, SafeAreaView, Text } from "react-native";
 import { View } from "react-native";
 
-export default function Admin() {
+export default function Admin({ navigation }: any) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Text>Hello</Text>
+      <Button
+        title="Add Post"
+        onPress={() => {
+          navigation.navigate("AddPost");
+        }}
+      />
     </SafeAreaView>
   );
 }
