@@ -83,12 +83,11 @@ export default function Account({ session }: { session: Session }) {
         <Input label="Email" value={session?.user?.email} disabled />
       </View>
       <View style={styles.verticallySpaced}>
-        <Input label="Username" value={username || ''} onChangeText={(text) => setUsername(text)} />
+        <Input label="Username" value={username} onChangeText={setUsername} />
       </View>
       <View style={styles.verticallySpaced}>
-        <Input label="Website" value={website || ''} onChangeText={(text) => setWebsite(text)} />
+        <Input label="Website" value={website} onChangeText={setWebsite} />
       </View>
-
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Button
           title={loading ? 'Loading ...' : 'Update'}
@@ -96,12 +95,11 @@ export default function Account({ session }: { session: Session }) {
           disabled={loading}
         />
       </View>
-
       <View style={styles.verticallySpaced}>
         <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
