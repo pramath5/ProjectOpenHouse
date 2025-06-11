@@ -9,6 +9,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Admin from "./components/Admin";
 import Home from "./components/Home";
+import AddPost from "./components/AddPost";
 const Stack = createNativeStackNavigator();
 export default function Navigation() {
   return (
@@ -18,6 +19,7 @@ export default function Navigation() {
           <Stack.Screen name="Auth" component={Auth} />
           <Stack.Screen name="Admin" component={Admin} />
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="AddPost" component={AddPost} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

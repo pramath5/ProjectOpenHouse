@@ -38,7 +38,6 @@ export default function Auth({ navigation }: any) {
       navigation.navigate("Admin");
       Alert.alert("your are a admin");
     } else {
-      Alert.alert("you are not a admin");
       navigation.navigate("Home");
     }
     setLoading(false);
