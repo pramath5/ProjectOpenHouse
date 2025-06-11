@@ -7,6 +7,8 @@ import Avatar from "./Avatar";
 import { View, Text, StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+
+
 export default function Tab({ navigation }: any) {
   const [avatarUrl, setAvatarUrl] = useState("");
   const [title, setTitle] = useState("");

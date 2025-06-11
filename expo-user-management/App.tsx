@@ -1,4 +1,3 @@
-// import "react-native-url-polyfill/auto";
 import { useState, useEffect } from "react";
 import { supabase } from "./lib/supabase";
 import Auth from "./components/Auth";
@@ -11,10 +10,23 @@ import Admin from "./components/Admin";
 import Home from "./components/Home";
 import Navigation from "./Navigation";
 import { SafeAreaView } from "react-native";
+
+export type Post = {
+  id: number;
+  username: string;
+  title: string;
+  desc: string;
+  venue: string;
+  date: string;
+  club: string;
+  imageUrl?: string;
+};
+
 export type RootStackParamList = {
   Auth: undefined;
   Home: undefined;
   Admin: undefined;
+  AddPost : undefined;
 };
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);

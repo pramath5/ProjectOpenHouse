@@ -10,7 +10,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Admin from "./components/Admin";
 import Home from "./components/Home";
 import AddPost from "./components/AddPost";
-const Stack = createNativeStackNavigator();
+import {Info} from "./components/Info"
+import { RootStackParamList } from './App';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function Navigation() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -20,6 +23,7 @@ export default function Navigation() {
           <Stack.Screen name="Admin" component={Admin} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="AddPost" component={AddPost} />
+          <Stack.Screen name="Info" component={Info} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

@@ -1,27 +1,28 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import {Info} from './Info'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList, Post } from '../types/types'; 
 
-interface Post {
-  id: string;
-  username: string;
-  title: string;
-  desc: string;
-  venue: string;
-  date: string;
-  club: string;
-  image_url?: string;
-}
+
+type InfoScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Info'>;
+
 
 const PostCard = ({ post }: { post: Post }) => {
+    const navigation = useNavigation<InfoScreenNavigationProp>();
   return (
-    <TouchableOpacity style={styles.card}>
+    
+    <TouchableOpacity 
+    style={styles.card} 
+    onPress={() => navigation.navigate('Info', { post })}
+    >
       <View style={styles.header}>
         <Text style={styles.username}>u/{post.username}</Text>
         <Text style={styles.title}>u/{post.title}</Text>
         <Text style={styles.date}>
           {new Date(post.date).toLocaleDateString()}
         </Text>
-        <Text style={styles.desc}>u/{post.desc}</Text>
         <Text style={styles.venue}>u/{post.venue}</Text>
         <Text style={styles.club}>u/{post.club}</Text>
       </View>
@@ -29,7 +30,7 @@ const PostCard = ({ post }: { post: Post }) => {
       <Text style={styles.title}>{post.title}</Text>
 
       {post.image_url ? (
-        <Image source={{ uri: "post.image_url" }} style={styles.image} />
+        <Image source={{ uri: post.image_url }} style={styles.image} />
       ) : null}
 
       <Text numberOfLines={3} style={styles.content}>

@@ -5,7 +5,7 @@ import { Button, Input } from "@rneui/themed";
 import { SafeAreaView } from "react-native";
 
 // Tells Supabase Auth to continuously refresh the session automatically if
-// the app is in the foreground. When this is added, you will continue to receive
+// the app is in the foreground. When this\\\\\\\\\\\\\ is added, you will continue to receive
 // `onAuthStateChange` events with the `TOKEN_REFRESHED` or `SIGNED_OUT` event
 // if the user's session is terminated. This should only be registered once.
 AppState.addEventListener("change", (state) => {
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
   verticallySpaced: {
     paddingTop: 4,
     paddingBottom: 4,
+    backgroundColor : '#ff00f0',
     alignSelf: "stretch",
   },
   mt20: {
