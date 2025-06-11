@@ -3,10 +3,12 @@ import { useState } from "react";
 import { Alert, TextInput } from "react-native";
 import { Button } from "react-native";
 import { supabase } from "../lib/supabase";
+import Avatar from "./Avatar";
 import { View, Text, StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 export default function Tab({ navigation }: any) {
+  const [avatarUrl, setAvatarUrl] = useState("");
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [venue, setVenue] = useState("");
@@ -43,6 +45,13 @@ export default function Tab({ navigation }: any) {
   let date_string = date.toString();
   return (
     <View style={styles.container}>
+      <Avatar
+        size={200}
+        url={avatarUrl}
+        onUpload={(url: string) => {
+          setAvatarUrl(url);
+        }}
+      />
       <Input placeholder="Title" onChangeText={(text) => setTitle(text)} />
       <Input placeholder="Club" onChangeText={(text) => setClub(text)} />
       <Input placeholder="Desc" onChangeText={(text) => setDesc(text)} />
