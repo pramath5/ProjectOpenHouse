@@ -32,10 +32,6 @@ const PostCard = ({ post }: { post: Post }) => {
       {post.image_url ? (
         <Image source={{ uri: post.image_url }} style={styles.image} />
       ) : null}
-
-      <Text numberOfLines={3} style={styles.content}>
-        {post.desc}
-      </Text>
     </TouchableOpacity>
   );
 };
@@ -86,11 +82,5 @@ const styles = StyleSheet.create({
   club: {
     color: "#ccc",
     fontSize: 14,
-  },
-  desc: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#fff",
-    marginBottom: 4,
-  },
+  }
 });

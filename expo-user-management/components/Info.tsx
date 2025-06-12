@@ -20,6 +20,7 @@ function Info({ route }: InfoScreenProps) {
       </Text>
       <Text style={styles.venue}>u/{post.venue}</Text>
       <Text style={styles.club}>u/{post.club}</Text>
+      <Text style={styles.desc}>{post.desc}</Text>
 
     </View>
   );
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
   desc: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#fff",
+    color: "#ffff00",
     marginBottom: 4,
   },
 });
