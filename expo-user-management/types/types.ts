@@ -15,4 +15,5 @@ export type RootStackParamList = {
   Admin: undefined;
   AddPost: undefined;
   Info: { post: Post };
+  Splash:undefined;
 };
