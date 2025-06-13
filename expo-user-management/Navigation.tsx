@@ -10,8 +10,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Admin from "./components/Admin";
 import Home from "./components/Home";
 import AddPost from "./components/AddPost";
-import {Info} from "./components/Info"
-import { RootStackParamList } from './App';
+import { Info } from "./components/Info";
+import { RootStackParamList } from "./types/types";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function Navigation() {

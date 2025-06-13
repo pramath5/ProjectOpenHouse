@@ -30,10 +30,6 @@ const PostCard = ({ post }: { post: Post }) => {
       {post.avatar_url ? (
         <Image source={{ uri: post.avatar_url }} style={styles.image} />
       ) : null}
-
-      <Text numberOfLines={3} style={styles.content}>
-        {post.desc}
-      </Text>
       <Text style={styles.content}>{post.venue}</Text>
       <Text style={styles.content}>{post.date}</Text>
       <Text style={styles.content}>{post.club}</Text>
