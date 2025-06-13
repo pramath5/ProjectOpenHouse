@@ -13,11 +13,14 @@ import AddPost from "./components/AddPost";
 import { Info } from "./components/Info";
 import { RootStackParamList } from "./types/types";
 
+
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function Navigation() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
+        
         <Stack.Navigator initialRouteName="Auth">
           <Stack.Screen name="Auth" component={Auth} />
           <Stack.Screen name="Admin" component={Admin} />

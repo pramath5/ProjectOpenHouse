@@ -26,6 +26,7 @@ export type RootStackParamList = {
   Home: undefined;
   Admin: undefined;
   AddPost : undefined;
+  Splash:undefined;
 };
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
