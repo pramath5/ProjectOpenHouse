@@ -12,6 +12,7 @@ interface Props {
 export default function Avatar({ url, size = 150, onUpload }: Props) {
   const [uploading, setUploading] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [publicUrl, setPublicUrl] = useState("");
   const avatarSize = { height: size, width: size };
 
   useEffect(() => {
@@ -70,7 +71,7 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
 
       const fileExt = image.uri?.split(".").pop()?.toLowerCase() ?? "jpeg";
       const path = `${Date.now()}.${fileExt}`;
-      const { data, error: uploadError } = await supabase.storage
+      let { data, error: uploadError } = await supabase.storage
         .from("avatars")
         .upload(path, arraybuffer, {
           contentType: image.mimeType ?? "image/jpeg",
@@ -79,8 +80,11 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
       if (uploadError) {
         throw uploadError;
       }
-
-      onUpload(data.path);
+      const { data: url } = await supabase.storage
+        .from("avatars")
+        .getPublicUrl(path);
+      console.log(url.publicUrl);
+      onUpload(url.publicUrl);
     } catch (error) {
       if (error instanceof Error) {
         Alert.alert(error.message);
@@ -96,7 +100,7 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
     <View>
       {avatarUrl ? (
         <Image
-          source={{ uri: avatarUrl }}
+          source={{ uri: publicUrl }}
           accessibilityLabel="Avatar"
           style={[avatarSize, styles.avatar, styles.image]}
         />

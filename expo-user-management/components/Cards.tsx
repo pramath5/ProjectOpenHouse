@@ -1,39 +1,42 @@
 import React from "react";
+import { useState } from "react";
+import { useNavigation } from "expo-router";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import { useNavigation } from '@react-navigation/native';
-import {Info} from './Info'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList, Post } from '../types/types'; 
-
-
-type InfoScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Info'>;
-
-
+import { Info } from "./Info";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList, Post } from "../types/types";
+// interface Post {
+//   id: string;
+//   username: string;
+//   title: string;
+//   desc: string;
+//   venue: string;
+//   date: string;
+//   club: string;
+//   avatar_url?: string;
+// }
+type InfoScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Info"
+>;
 const PostCard = ({ post }: { post: Post }) => {
-    const navigation = useNavigation<InfoScreenNavigationProp>();
+  const navigation = useNavigation<InfoScreenNavigationProp>();
+  const [id, setId] = useState("");
   return (
-    
-    <TouchableOpacity 
-    style={styles.card} 
-    onPress={() => navigation.navigate('Info', { post })}
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => navigation.navigate("Info", { post })}
     >
-      <View style={styles.header}>
-        
-      
-        <Text style={styles.title}>{post.title}</Text>
-        <Text style={styles.date}>
-          {new Date(post.date).toLocaleDateString()}
-        </Text>
-      </View>
-      <View>
-          <Text style={styles.venue}>{post.venue}</Text>
-          <Text style={styles.club}>{post.club}</Text>
-        </View>
-
-
-      {post.image_url ? (
-        <Image source={{ uri: post.image_url }} style={styles.image} />
+      {post.avatar_url ? (
+        <Image source={{ uri: post.avatar_url }} style={styles.image} />
       ) : null}
+
+      <Text numberOfLines={3} style={styles.content}>
+        {post.desc}
+      </Text>
+      <Text style={styles.content}>{post.venue}</Text>
+      <Text style={styles.content}>{post.date}</Text>
+      <Text style={styles.content}>{post.club}</Text>
     </TouchableOpacity>
   );
 };
@@ -42,49 +45,52 @@ export default PostCard;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#219ebc',
+    backgroundColor: "#ff0000",
     padding: 16,
-    marginVertical: 10,
+    marginVertical: 8,
     borderRadius: 12,
     elevation: 4,
   },
+  image: {
+    width: "100%",
+    height: 200,
+    borderRadius: 8,
+  },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 6,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 8,
   },
   username: {
-    color: '#e9edc9',
+    color: "#ccc",
     fontSize: 14,
-    fontWeight: '500',
   },
   date: {
-    color: '#fb8500',
+    color: "#888",
     fontSize: 12,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginVertical: 6,
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 4,
   },
-  metaInfo: {
-    marginBottom: 8,
+  content: {
+    color: "#ddd",
+    fontSize: 14,
   },
   venue: {
-    color: '#dff0ea',
+    color: "#ccc",
     fontSize: 14,
-    marginTop: 2,
   },
   club: {
-    color: '#dff0ea',
+    color: "#ccc",
     fontSize: 14,
-    marginTop: 2,
   },
-  image: {
-    width: '100%',
-    height: 180,
-    borderRadius: 8,
-    marginTop: 10,
+  desc: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 4,
   },
 });

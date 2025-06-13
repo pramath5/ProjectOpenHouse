@@ -6,13 +6,13 @@ export type Post = {
   venue: string;
   date: string;
   club: string;
-  image_url?: string;
-};  
+  avatar_url?: string;
+};
 
 export type RootStackParamList = {
   Auth: undefined;
   Home: undefined;
   Admin: undefined;
-  AddPost : undefined;
+  AddPost: undefined;
   Info: { post: Post };
 };
