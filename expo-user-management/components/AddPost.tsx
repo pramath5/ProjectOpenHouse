@@ -1,7 +1,7 @@
 import { Input } from "@rneui/themed";
 import { useState } from "react";
 import { Alert, TextInput } from "react-native";
-import { Button } from "react-native";
+import { Button, KeyboardAvoidingView, ScrollView } from "react-native";
 import { supabase } from "../lib/supabase";
 import Avatar from "./Avatar";
 import { View, Text, StyleSheet } from "react-native";
@@ -45,30 +45,85 @@ export default function Tab({ navigation }: any) {
     showMode("date");
   };
   let date_string = date.toString();
-  return (
-    <View style={styles.container}>
+  
+  
+return (
+  <KeyboardAvoidingView
+    style={{ flex: 1 }}
+
+  >
+    <ScrollView contentContainerStyle={styles.container}>
       <Avatar
         size={200}
         url={avatarUrl}
-        onUpload={(url: string) => {
-          setAvatarUrl(url);
-        }}
+        onUpload={(url: string) => setAvatarUrl(url)}
       />
-      <Input placeholder="Title" onChangeText={(text) => setTitle(text)} />
-      <Input placeholder="Club" onChangeText={(text) => setClub(text)} />
-      <Input placeholder="Desc" onChangeText={(text) => setDesc(text)} />
-      <Input placeholder="Venue" onChangeText={(text) => setVenue(text)} />
-      <Input placeholder="Date" value={date_string} />
-      <Button onPress={showDatepicker} title="Show date picker!" />
-      <Button title="Submit" onPress={() => Submit()} />
-    </View>
-  );
-}
+
+      <Input
+        placeholder="Title"
+        onChangeText={(text) => setTitle(text)}
+        containerStyle={styles.input}
+      />
+      <Input
+        placeholder="Club"
+        onChangeText={(text) => setClub(text)}
+        containerStyle={styles.input}
+      />
+      <Input
+        placeholder="Desc"
+        onChangeText={(text) => setDesc(text)}
+        containerStyle={styles.input}
+      />
+      <Input
+        placeholder="Venue"
+        onChangeText={(text) => setVenue(text)}
+        containerStyle={styles.input}
+      />
+      <Input
+        placeholder="Date"
+        value={date_string}
+        containerStyle={styles.input}
+      />
+
+      <Button
+        title="Show Date Picker"
+        onPress={showDatepicker}
+        
+      />
+      <Button
+        title="Submit"
+        onPress={Submit}
+        
+        
+      />
+    </ScrollView>
+  </KeyboardAvoidingView>
+);
+};
+
+
+
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    padding: 20,
+    paddingBottom: 40,
+    backgroundColor: '#f0f4f8',
+    flexGrow: 1,
+    alignItems: 'stretch',
+  },
+  input: {
+    marginBottom: 16,
+  },
+  button: {
+    backgroundColor: '#219ebc',
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  submitButton: {
+    backgroundColor: '#023047',
+  },
+  buttonContainer: {
+    marginVertical: 10,
   },
 });

@@ -18,16 +18,18 @@ const PostCard = ({ post }: { post: Post }) => {
     onPress={() => navigation.navigate('Info', { post })}
     >
       <View style={styles.header}>
-        <Text style={styles.username}>u/{post.username}</Text>
-        <Text style={styles.title}>u/{post.title}</Text>
+        
+      
+        <Text style={styles.title}>{post.title}</Text>
         <Text style={styles.date}>
           {new Date(post.date).toLocaleDateString()}
         </Text>
-        <Text style={styles.venue}>u/{post.venue}</Text>
-        <Text style={styles.club}>u/{post.club}</Text>
       </View>
+      <View>
+          <Text style={styles.venue}>{post.venue}</Text>
+          <Text style={styles.club}>{post.club}</Text>
+        </View>
 
-      <Text style={styles.title}>{post.title}</Text>
 
       {post.image_url ? (
         <Image source={{ uri: post.image_url }} style={styles.image} />
@@ -40,47 +42,49 @@ export default PostCard;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#ff0000",
+    backgroundColor: '#219ebc',
     padding: 16,
-    marginVertical: 8,
+    marginVertical: 10,
     borderRadius: 12,
     elevation: 4,
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 6,
   },
   username: {
-    color: "#ccc",
+    color: '#e9edc9',
     fontSize: 14,
+    fontWeight: '500',
   },
   date: {
-    color: "#888",
+    color: '#fb8500',
     fontSize: 12,
   },
   title: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#fff",
-    marginBottom: 4,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginVertical: 6,
   },
-  image: {
-    width: "100%",
-    height: 200,
-    borderRadius: 8,
-    marginVertical: 8,
-  },
-  content: {
-    color: "#ddd",
-    fontSize: 14,
+  metaInfo: {
+    marginBottom: 8,
   },
   venue: {
-    color: "#ccc",
+    color: '#dff0ea',
     fontSize: 14,
+    marginTop: 2,
   },
   club: {
-    color: "#ccc",
+    color: '#dff0ea',
     fontSize: 14,
-  }
+    marginTop: 2,
+  },
+  image: {
+    width: '100%',
+    height: 180,
+    borderRadius: 8,
+    marginTop: 10,
+  },
 });

@@ -13,13 +13,13 @@ function Info({ route }: InfoScreenProps) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.username}>u/{post.username}</Text>
+      <Text style={styles.username}>{post.username}</Text>
       <Text style={styles.title}>{post.title}</Text>
       <Text style={styles.date}>
         {new Date(post.date).toLocaleDateString()}
       </Text>
-      <Text style={styles.venue}>u/{post.venue}</Text>
-      <Text style={styles.club}>u/{post.club}</Text>
+      <Text style={styles.venue}>Venue: {post.venue}</Text>
+      <Text style={styles.club}>Club: {post.club}</Text>
       <Text style={styles.desc}>{post.desc}</Text>
 
     </View>
@@ -27,60 +27,41 @@ function Info({ route }: InfoScreenProps) {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 20 
-  },
-
-  card: {
-    backgroundColor: "#ff0000",
-    padding: 16,
-    marginVertical: 8,
-    borderRadius: 12,
-    elevation: 4,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 8,
+  container: {
+    padding: 20,
+    backgroundColor: '#f4f6fc',
+    flexGrow: 1,
   },
   username: {
-    color: "#ccc",
     fontSize: 14,
-  },
-  date: {
-    color: "#888",
-    fontSize: 12,
+    color: '#6c757d',
+    marginBottom: 4,
   },
   title: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#fff",
-    marginBottom: 4,
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#023047',
+    marginBottom: 8,
   },
-  image: {
-    width: "100%",
-    height: 200,
-    borderRadius: 8,
-    marginVertical: 8,
-  },
-  content: {
-    color: "#ddd",
-    fontSize: 14,
+  date: {
+    fontSize: 12,
+    color: '#8d99ae',
+    marginBottom: 16,
   },
   venue: {
-    color: "#ccc",
-    fontSize: 14,
+    fontSize: 16,
+    color: '#219ebc',
+    marginBottom: 4,
   },
   club: {
-    color: "#ccc",
-    fontSize: 14,
+    fontSize: 16,
+    color: '#219ebc',
+    marginBottom: 12,
   },
   desc: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#ffff00",
-    marginBottom: 4,
+    fontSize: 16,
+    color: '#333',
+    lineHeight: 22,
   },
 });
 

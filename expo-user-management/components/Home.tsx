@@ -38,6 +38,7 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <FlatList
         data={posts}
+        contentContainerStyle={styles.listContent}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <PostCard post={item} />}
       />
@@ -50,7 +51,11 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 12,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fff',
+    paddingHorizontal: 12,
+    paddingTop: 10,
+  },
+   listContent: {
+    paddingBottom: 20,
   },
 });

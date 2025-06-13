@@ -6,7 +6,7 @@ import HomeScreen from "./Home";
 
 export default function Admin({ navigation }: any) {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, paddingBottom:40 }}>
       <HomeScreen />
       <Button
         title="Add Post"
