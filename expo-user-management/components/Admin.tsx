@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, SafeAreaView, Text } from "react-native";
 import { View } from "react-native";
-import PostCard from "./Cards";
 import HomeScreen from "./Home";
 
 export default function Admin({ navigation }: any) {

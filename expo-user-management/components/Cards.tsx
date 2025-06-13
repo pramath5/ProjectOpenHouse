@@ -5,16 +5,6 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Info } from "./Info";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList, Post } from "../types/types";
-// interface Post {
-//   id: string;
-//   username: string;
-//   title: string;
-//   desc: string;
-//   venue: string;
-//   date: string;
-//   club: string;
-//   avatar_url?: string;
-// }
 type InfoScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   "Info"

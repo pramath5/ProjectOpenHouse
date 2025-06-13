@@ -1,89 +1,121 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import {View,Text,StyleSheet,Image,ScrollView,TouchableOpacity,Dimensions,Alert,} from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useNavigation } from "expo-router";
 import { RootStackParamList } from "../types/types";
-import { Button } from "react-native";
 import { supabase } from "../lib/supabase";
+
+const screenWidth = Dimensions.get("window").width;
 
 type InfoScreenProps = NativeStackScreenProps<RootStackParamList, "Info">;
 
 function Info({ route }: InfoScreenProps) {
   const { post } = route.params;
-  const [reg_email, setReg_email] = useState("");
-  const navigation = useNavigation();
+  const [imageHeight, setImageHeight] = useState(300);
+
+  useEffect(() => {
+    if (post.avatar_url) {
+      Image.getSize(post.avatar_url, (width, height) => {
+        const scale = screenWidth / width;
+        setImageHeight(height * scale);
+      });
+    }
+  }, []);
+
   async function HandleRegister() {
-    let { data: user, error } = await supabase.auth.getUser();
-    console.log(user.user.email);
-    setReg_email(user.user.email);
-    let { data: registered } = await supabase
+    const { data: user, error } = await supabase.auth.getUser();
+    if (error || !user.user?.email) {
+      Alert.alert("Error", "Unable to fetch user");
+      return;
+    }
+
+    const { error: regError } = await supabase
       .from("posts")
-      .insert({ registered: reg_email });
-    console.log(registered);
+      .insert({ registered: user.user.email });
+
+    if (regError) {
+      Alert.alert("Error", "Failed to register");
+    } else {
+      Alert.alert("Success", "You have been registered!");
+    }
   }
+
   return (
-    <View style={styles.container}>
-      {post.avatar_url ? (
-        <Image source={{ uri: post.avatar_url }} style={styles.image} />
-      ) : null}
-      <Text style={styles.title}>{post.title}</Text>
-
-      <Text style={styles.desc}>{post.desc}</Text>
-
-      <Text style={styles.venue}>Venue: {post.venue}</Text>
-      <Text style={styles.club}>Club: {post.club}</Text>
-      <Text style={styles.date}>
-        {new Date(post.date).toLocaleDateString()}
-      </Text>
-      <Button title="Count me in" onPress={HandleRegister}></Button>
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      {post.avatar_url && (
+        <Image
+          source={{ uri: post.avatar_url }}
+          style={{
+            width: screenWidth,
+            height: imageHeight,
+            resizeMode: "cover",
+          }}
+        />
+      )}
+      <View style={styles.content}>
+        <Text style={styles.title}>{post.title}</Text>
+        <Text style={styles.desc}>{post.desc}</Text>
+        <Text style={styles.metaText}>📍 Venue: {post.venue}</Text>
+        <Text style={styles.metaText}>
+          📅 Date: {new Date(post.date).toLocaleDateString()}
+        </Text>
+        <Text style={styles.metaText}>🏢 Club: {post.club}</Text>
+        <TouchableOpacity style={styles.joinButton} onPress={HandleRegister}>
+          <Text style={styles.joinButtonText}>Join Event </Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    backgroundColor: "#f4f6fc",
-    flexGrow: 1,
+    backgroundColor: "#f8f9fa",
+    paddingBottom: 30,
   },
-  username: {
-    fontSize: 14,
-    color: "#6c757d",
-    marginBottom: 4,
+  content: {
+    padding: 16,
+    backgroundColor: "#fff",
   },
   title: {
-    fontSize: 56,
+    fontSize: 24,
     fontWeight: "bold",
-    color: "#023047",
-    marginBottom: 8,
-  },
-  date: {
-    fontSize: 12,
-    color: "#8d99ae",
-    marginBottom: 16,
-  },
-  venue: {
-    fontSize: 16,
-    color: "#219ebc",
-    marginBottom: 4,
-    marginTop: 20,
-  },
-  image: {
-    width: "100%",
-    height: 200,
-    borderRadius: 8,
-  },
-
-  club: {
-    fontSize: 16,
-    color: "#219ebc",
+    color: "#212529",
     marginBottom: 12,
-    marginTop: 20,
   },
   desc: {
     fontSize: 16,
-    color: "#333",
     lineHeight: 22,
+    color: "#343a40",
+    marginBottom: 12,
+  },
+  metaText: {
+    fontSize: 15,
+    color: "#495057",
+    marginBottom: 6,
+  },
+  joinButton: {
+    backgroundColor : '#3498db',
+    paddingVertical: 10,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  joinButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  actionsRow: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: "#dee2e6",
+    marginTop: 20,
+  },
+  action: {
+    fontSize: 18,
+    color: "#495057",
   },
 });
 
