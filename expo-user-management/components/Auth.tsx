@@ -56,10 +56,7 @@ export default function Auth({ navigation }: any) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        
-        
-      </View>
+      <View></View>
 
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input
@@ -114,75 +111,73 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 25,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    justifyContent: "center",
   },
   verticallySpaced: {
-   backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 12,
     marginVertical: 10,
     padding: 5,
   },
   mt20: {
-    
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 4,
-
   },
-  
+
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    alignSelf: 'center',
+    fontWeight: "bold",
+    alignSelf: "center",
     marginBottom: 30,
-    color: '#2c3e50',
+    color: "#2c3e50",
   },
-  
+
   inputBox: {
     borderBottomWidth: 1,
   },
   inputText: {
-    color: '#333',
+    color: "#333",
     fontSize: 16,
   },
   inputLabel: {
     marginBottom: 4,
-    color: '#555',
-    fontWeight: '500',
+    color: "#555",
+    fontWeight: "500",
   },
   buttonContainer: {
     marginTop: 20,
   },
   signInButton: {
-    backgroundColor: '#3498db',
+    backgroundColor: "#3498db",
     borderRadius: 8,
     paddingVertical: 12,
   },
   signUpButton: {
-    borderColor: '#3498db',
+    borderColor: "#3498db",
     borderWidth: 1.5,
     borderRadius: 8,
     paddingVertical: 12,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   buttonTitle: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#fff',
+    fontWeight: "600",
+    color: "#fff",
   },
   signUpTitle: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#3498db',
+    fontWeight: "600",
+    color: "#3498db",
   },
   shadow: {
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 4,
-  }
+  },
 });
