@@ -22,14 +22,15 @@ export default function Tab({ navigation }: any) {
   const [venue, setVenue] = useState("");
   const [date, setDate] = useState(new Date());
   const [club, setClub] = useState("");
-
+  const [selectedClub, setSelectedClub] = useState("");
+  const clubs = ["No Club", "GDSC", "Actkrit", "AdroIT"];
   const Submit = async () => {
     const { error } = await supabase.from("posts").insert([
       {
         title,
         desc,
         venue,
-        club,
+        club: selectedClub,
         date,
         avatar_url: avatarUrl,
       },
@@ -59,7 +60,9 @@ export default function Tab({ navigation }: any) {
       mode: "date",
     });
   };
-
+  async function handleChange(value: string) {
+    setSelectedClub(value);
+  }
   const dateString = date.toString();
 
   return (
@@ -88,13 +91,17 @@ export default function Tab({ navigation }: any) {
           />
         </View>
         <View style={[styles.image, styles.shadow]}>
-          <Input
-            placeholder="Club"
-            value={club}
-            onChangeText={setClub}
-            containerStyle={styles.input}
-          />
-
+          <View style={styles.Picker_cont}>
+            <Picker
+              selectedValue={selectedClub ?? "All Clubs"}
+              onValueChange={handleChange}
+              style={styles.picker}
+            >
+              {clubs.map((club) => (
+                <Picker.Item key={club} label={club} value={club} />
+              ))}
+            </Picker>
+          </View>
           <Input
             placeholder="Venue"
             value={venue}
@@ -136,6 +143,16 @@ const styles = StyleSheet.create({
   input: {
     paddingTop: 20,
     marginBottom: 16,
+  },
+  Picker_cont: {
+    borderWidth: 1,
+    borderColor: "#d1c9c9",
+    borderRadius: 10,
+  },
+  picker: {
+    borderColor: "#ccc",
+    height: 50,
+    width: "100%",
   },
   buttonWrapper: {
     marginTop: 20,

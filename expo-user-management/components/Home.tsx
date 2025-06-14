@@ -130,10 +130,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 8,
+    marginBottom: 17,
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "700",
     color: "#2c2c2c",
     flexShrink: 1,
