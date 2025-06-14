@@ -1,12 +1,19 @@
 import { Input, Button } from "@rneui/themed";
 import { useState } from "react";
-import { Alert, View, StyleSheet, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
-import { Text,TouchableOpacity} from "react-native";
+import {
+  Alert,
+  View,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { supabase } from "../lib/supabase";
 import Avatar from "./Avatar";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
+import { Picker } from "@react-native-picker/picker";
 
 export default function Tab({ navigation }: any) {
   const [avatarUrl, setAvatarUrl] = useState("");
@@ -17,18 +24,16 @@ export default function Tab({ navigation }: any) {
   const [club, setClub] = useState("");
 
   const Submit = async () => {
-    const { error } = await supabase
-      .from("posts")
-      .insert([
-        {
-          title,
-          desc,
-          venue,
-          club,
-          date,
-          avatar_url: avatarUrl,
-        },
-      ]);
+    const { error } = await supabase.from("posts").insert([
+      {
+        title,
+        desc,
+        venue,
+        club,
+        date,
+        avatar_url: avatarUrl,
+      },
+    ]);
 
     if (error) {
       console.error(error);
@@ -64,47 +69,45 @@ export default function Tab({ navigation }: any) {
     >
       <ScrollView contentContainerStyle={styles.container}>
         <View style={[styles.image, styles.shadow]}>
-        <View style={styles.avatarContainer}>
-          <Avatar size={160} url={avatarUrl} onUpload={setAvatarUrl} />
-        </View>
+          <View style={styles.avatarContainer}>
+            <Avatar size={160} url={avatarUrl} onUpload={setAvatarUrl} />
+          </View>
 
-        <Input
-          placeholder="Title"
-          value={title}
-          onChangeText={setTitle}
-          containerStyle={styles.input}
-        />
-        
-        <Input
-          placeholder="Description"
-          value={desc}
-          onChangeText={setDesc}
-          containerStyle={styles.input}
-        />
+          <Input
+            placeholder="Title"
+            value={title}
+            onChangeText={setTitle}
+            containerStyle={styles.input}
+          />
+
+          <Input
+            placeholder="Description"
+            value={desc}
+            onChangeText={setDesc}
+            containerStyle={styles.input}
+          />
         </View>
         <View style={[styles.image, styles.shadow]}>
-        <Input
-          placeholder="Club"
-          value={club}
-          onChangeText={setClub}
-          containerStyle={styles.input}
-        />
-        
-        <Input
-          placeholder="Venue"
-          value={venue}
-          onChangeText={setVenue}
-          containerStyle={styles.input}
-        />
-        </View>
-        
-        <TouchableOpacity onPress={showDatepicker} style={styles.dateField}>
-        <Text style={styles.dateText}>
-          {date ? date.toLocaleDateString() : "Select Date"}
-        </Text>
-      </TouchableOpacity>
+          <Input
+            placeholder="Club"
+            value={club}
+            onChangeText={setClub}
+            containerStyle={styles.input}
+          />
 
-        
+          <Input
+            placeholder="Venue"
+            value={venue}
+            onChangeText={setVenue}
+            containerStyle={styles.input}
+          />
+        </View>
+
+        <TouchableOpacity onPress={showDatepicker} style={styles.dateField}>
+          <Text style={styles.dateText}>
+            {date ? date.toLocaleDateString() : "Select Date"}
+          </Text>
+        </TouchableOpacity>
 
         <View style={styles.buttonWrapper}>
           <Button
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   input: {
-    paddingTop:20,
+    paddingTop: 20,
     marginBottom: 16,
   },
   buttonWrapper: {
@@ -151,23 +154,23 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
   image: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 12,
     marginVertical: 10,
     padding: 5,
   },
   shadow: {
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 4,
   },
-    dateText: {
+  dateText: {
     fontSize: 16,
     color: "#333",
-  },
- dateField: {
+  },
+  dateField: {
     padding: 12,
     borderWidth: 1,
     borderColor: "#ccc",

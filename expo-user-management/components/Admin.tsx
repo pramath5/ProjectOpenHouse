@@ -1,17 +1,27 @@
 import React, { useState } from "react";
-import { Button, SafeAreaView, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  Button,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { View } from "react-native";
 import HomeScreen from "./Home";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function Admin({ navigation }: any) {
   return (
-    <SafeAreaView style={{ flex: 1, paddingBottom:40 }}>
+    <SafeAreaView style={{ flex: 1, paddingBottom: 40 }}>
       <HomeScreen />
-      <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("AddPost")}}>
-           <Ionicons name="add" size={30} color="#fff" />
-         </TouchableOpacity>
-      />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate("AddPost");
+        }}
+      >
+        <Ionicons name="add" size={30} color="#fff" />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {View,Text,StyleSheet,Image,ScrollView,TouchableOpacity,Dimensions,Alert,} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Dimensions,
+  Alert,
+} from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types/types";
 import { supabase } from "../lib/supabase";
@@ -77,24 +86,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   title: {
-    fontSize: 24,
+    fontSize: 46,
     fontWeight: "bold",
     color: "#212529",
-    marginBottom: 12,
+    marginBottom: 20,
   },
   desc: {
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 22,
     color: "#343a40",
-    marginBottom: 12,
+    marginBottom: 20,
   },
   metaText: {
-    fontSize: 15,
+    fontSize: 16,
+    fontWeight: "bold",
     color: "#495057",
-    marginBottom: 6,
+    marginBottom: 20,
   },
   joinButton: {
-    backgroundColor : '#3498db',
+    backgroundColor: "#3498db",
     paddingVertical: 10,
     borderRadius: 8,
     alignItems: "center",

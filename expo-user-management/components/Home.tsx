@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { supabase } from "../lib/supabase";
 import { useNavigation } from "@react-navigation/native";
-
+import ClubFilter from "./Filter";
 interface Post {
   id: string;
   username: string;
@@ -23,7 +23,9 @@ interface Post {
 
 const HomeScreen = () => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [Filter_posts, setFilter_Posts] = useState<Post[]>([]);
   const navigation = useNavigation<any>();
+  const [selectedClub, setSelectedClub] = useState<string | null>(null);
 
   useEffect(() => {
     fetchPosts();
@@ -33,7 +35,7 @@ const HomeScreen = () => {
     const { data, error } = await supabase
       .from("posts")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("id", { ascending: false });
 
     if (error) {
       console.error("Error fetching posts:", error.message);
@@ -41,36 +43,47 @@ const HomeScreen = () => {
       setPosts((data as Post[]) || []);
     }
   };
+  const GetFilteredPosts = async () => {
+    let query = supabase.from("posts").select("*");
+    if (selectedClub) query = query.eq("club", selectedClub);
+    query = query.order("id", { ascending: false });
+    const { data, error } = await query;
+    if (data) setPosts(data);
+    if (error) console.error(error);
+  };
+
+  useEffect(() => {
+    GetFilteredPosts();
+  }, [selectedClub]);
 
   const renderItem = ({ item }: { item: Post }) => (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={() => navigation.navigate("Info", { post: item })}
-    >
+    <View>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => navigation.navigate("Info", { post: item })}
+      >
+        <View style={styles.titleRow}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.date}>
+            {new Date(item.date).toLocaleDateString()}
+          </Text>
+        </View>
 
-      <View style={styles.titleRow}>
-  <Text style={styles.title}>{item.title}</Text>
-  <Text style={styles.date}>{new Date(item.date).toLocaleDateString()}</Text>
-</View>
+        {item.avatar_url && (
+          <Image source={{ uri: item.avatar_url }} style={styles.image} />
+        )}
 
-
-  
-      {item.avatar_url && (
-        <Image source={{ uri: item.avatar_url }} style={styles.image} />
-      )}
-
-      
-
-     
-      <View style={styles.footer}>
-        <Text style={styles.venue}>📍 {item.venue}</Text>
-        <Text style={styles.club}>🏷️ {item.club}</Text>
-      </View>
-    </TouchableOpacity>
+        <View style={styles.footer}>
+          <Text style={styles.venue}>📍 {item.venue}</Text>
+          <Text style={styles.club}>🏷️ {item.club}</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 
   return (
     <View style={styles.container}>
+      <ClubFilter onSelectClub={setSelectedClub} />
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id.toString()}
@@ -114,24 +127,24 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   titleRow: {
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  marginBottom: 8,
-},
-title: {
-  fontSize: 18,
-  fontWeight: '700',
-  color: '#2c2c2c',
-  flexShrink: 1,
-},
-date: {
-  fontSize: 12,
-  color: '#888',
-  fontStyle: 'italic',
-  fontWeight: '900', 
-  marginLeft: 8,
-},
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#2c2c2c",
+    flexShrink: 1,
+  },
+  date: {
+    fontSize: 12,
+    color: "#888",
+    fontStyle: "italic",
+    fontWeight: "900",
+    marginLeft: 8,
+  },
 
   image: {
     width: "100%",
@@ -140,7 +153,7 @@ date: {
     marginBottom: 10,
     backgroundColor: "#eee",
   },
-  
+
   footer: {
     flexDirection: "row",
     justifyContent: "space-between",
